@@ -80,6 +80,11 @@ public class MainActivity extends AppCompatActivity {
                 .send();
     }
 
+    public void switchToSensorsActivity(View view) {
+        Intent intent = new Intent(this, AccessSensorsActivity.class);
+
+        startActivity(intent);
+    }
 
 
 }
