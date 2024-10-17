@@ -17,7 +17,9 @@ import java.util.List;
 public class AccessSensorsActivity extends AppCompatActivity {
 
     private SensorManager sensorManager;
-    private Sensor mLight, mTemperature;
+    LightSensorAccess lightSensorAccess;
+    //private Sensor mLight, mTemperature;
+    private String iPAddr = "0.0.0.0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,15 +29,24 @@ public class AccessSensorsActivity extends AppCompatActivity {
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         TextView textView = (TextView) findViewById(R.id.textViewLuminosity);
         TextView textViewAlert = (TextView) findViewById(R.id.textViewAlert);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null){
+            iPAddr = extras.getString("IPAddr");
+        }
+
         //mTemperature = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
         //List<Sensor> deviceSensors = sensorManager.getSensorList(Sensor.TYPE_ALL);
         //EditText sensorInfoField = (EditText) findViewById(R.id.editTextSensorInfo);
         //sensorInfoField.setText(deviceSensors.toString());
 
-        LightSensorAccess lightSensorAccess = new LightSensorAccess(sensorManager, textView, textViewAlert);
-
-
+        lightSensorAccess = new LightSensorAccess(sensorManager, textView, textViewAlert, iPAddr);
     }
 
+    @Override
+    protected void onStop(){
+        super.onStop();
+        lightSensorAccess.finalize();
+    }
 }
 

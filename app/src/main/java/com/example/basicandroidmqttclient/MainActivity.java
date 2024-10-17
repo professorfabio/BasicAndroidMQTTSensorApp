@@ -83,8 +83,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void switchToSensorsActivity(View view) {
+        EditText brokerIP = (EditText) findViewById(R.id.editTextTextIPAddr);
         Intent intent = new Intent(this, AccessSensorsActivity.class);
-
+        intent.putExtra("IPAddr", brokerIP.getText().toString());
         startActivity(intent);
     }
 
