@@ -9,12 +9,12 @@ import android.widget.TextView;
 public class LightSensorAccess implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor mLight;
-    private TextView sensor_field, alert_field;
+    private TextView sensorField, alertField;
 
     public LightSensorAccess(SensorManager sm, TextView tv, TextView tvAlert){
         sensorManager = sm;
-        sensor_field = tv;
-        alert_field = tvAlert;
+        sensorField = tv;
+        alertField = tvAlert;
         mLight = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         sensorManager.registerListener(this, mLight, SensorManager.SENSOR_DELAY_NORMAL);
     }
@@ -28,13 +28,13 @@ public class LightSensorAccess implements SensorEventListener {
         // The light sensor returns a single value.
         float lux = event.values[0];
         // Show luminosity value on the text field
-        sensor_field.setText(String.valueOf(lux));
+        sensorField.setText(String.valueOf(lux));
 
         if (lux < 30) {
-            alert_field.setText("Ficou escuro");
+            alertField.setText("Ficou escuro");
         }
         else {
-            alert_field.setText("Ficou claro");
+            alertField.setText("Ficou claro");
         }
     }
 
